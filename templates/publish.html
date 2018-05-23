@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+        <script type="text/javascript">
+            var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            function ajaxForm() {
+                $.ajax( {
+                    type : "POST",
+                    url : $SCRIPT_ROOT,
+                    dataType : "json",
+                    data : {
+                        "title" : $("input[name=title]").val(),
+                        "type" : $("select[name=type]").val(),
+                        "passage" : $("textarea[name=passage]").val(),
+                        "token"    : $("input[name=token]").val()
+                    },
+                    error: function(XMLResponse) {
+                        alert( XMLResponse.responseText )
+                    },
+                    success : function (data, textStatus) {
+                        $("#ans").text( data.text );
+                        if(data.state == "OK") {
+                            setTimeout(function() {
+                                window.location.href="{{ url_for("published") }}"
+                            }, 1000)
+                        }
+                    }
+                } );
+                return false;
+            }
+        </script>
+    <br/>
+        <div style="margin:0 auto; width: 500px;">
+        <form id="form1" name="form1" method="post" onSubmit="return ajaxForm()" action="" style="text-align: left;">
+            <input class="wideinput" type="text" name="title" id="title" placeholder="{{ tr("titleT") }}"/>
+{#            <span>&nbsp;&nbsp;归类：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
+                <select class="widechoose td-form-control td-form-control--sm td-form-control--select td-width-full" name="type" id="type">
+                    {% for type in typelist %}
+                    <option value ="{{ type[0] }}">{{ tr("classesT2") }}{{ type[1] }}</option>
+                    {% endfor %}
+                </select>
+{#            </span>#}
+        <br/><br/>
+            <textarea class="wideinput" type="text" name="passage" id="passage" placeholder="{{ tr("contentsT") }}" style="height: 150px"></textarea>
+            <input hidden name="token" id="token" value="{{ mtoken }}"/>
+            <input style="width:100%;" class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("publishB") }}"/>
+        </form><br/>
+        <p id="ans">{{ tr("publishPageHint") }}</p>
+        </div>
+{% endblock %}

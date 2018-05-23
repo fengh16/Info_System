@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+        <script type="text/javascript">
+            var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            function ajaxForm() {
+                $.ajax( {
+                    type : "POST",
+                    url : $SCRIPT_ROOT,
+                    dataType : "json",
+                    data : {
+                        "username" : $("input[name=username]").val(),
+                        "password" : $("input[name=password]").val(),
+                        "token"    : $("input[name=token]").val()
+                    },
+                    error: function(XMLResponse) {
+                        alert( XMLResponse.responseText )
+                    },
+                    success : function (data, textStatus) {
+                        $("#ans").text( data.text );
+                        if(data.state == "OK") {
+                            setTimeout(function() {
+                                window.location.href="{{ url_for("index") }}"
+                            }, 1000)
+                        }
+                    }
+                } );
+                return false;
+            }
+        </script>
+    <br/>
+        <div style="margin:0 auto; width: 300px;">
+        <form id="form1" name="form1" method="post" onSubmit="return ajaxForm()" action="" style="text-align: left;">
+            <input class="wideinput" type="text" name="username" id="username" placeholder="{{ tr("useridPlaceHolder") }}"/><br/>
+            <input class="wideinput" type="password" name="password" id="password" placeholder="{{ tr("passwordPlaceHolder") }}"/><br/>
+            <input hidden name="token" id="token" value="{{ mtoken }}"/><br/>
+            <input style="width:100%;" class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("loginB") }}"/><br/>
+        </form><br/>
+        <p id="ans">{{ tr("loginPageHint") }}</p>
+        </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+    <br/><br/>
+            <table class="pricing sticky">
+                <thead class="pricing__header">
+                    <tr>
+                        <td class="sticky__header p-h-0 p-v-0" colspan="3">
+                            <table>
+                                <tbody class="sticky__header-body">
+                                    <tr class="pricing__plans">
+                                        <th scope="col"><b>{{ tr("typenameHint") }}</b></th>
+                                        <th scope="col">{{ tr("typetextHint") }}</th>
+                                        <th scope="col">{{ tr("operationsT") }}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in infodata %}
+                    <tr>
+                            <th><b>{{ data[1] }}</b></th>
+                            <td>{{ data[0] }}</td>
+                            <td><form id="form1" name="form1" method="post">
+                                <input hidden name="token" id="token" value="{{ mtoken }}"/>
+                                <input hidden name="type" id="type" value="delete"/>
+                                <input hidden name="chosen" id="chosen" value="{{ data[0] }}"/>
+                                <input class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("deleteB") }}"/>
+                            </form></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    <br/><br/><br/>
+    <div style="margin:0 auto; width: 500px;">
+        <form id="form1" name="form1" method="post" style="text-align: left;">
+            <input class="wideinput" type="text" name="typename" id="typename" placeholder="{{ tr("typenameHint") }}"/>
+            <input class="wideinput" type="text" name="typevalue" id="typevalue" placeholder="{{ tr("typetextHint") }}"/>
+            <input hidden name="token" id="token" value="{{ mtoken }}"/>
+            <input hidden name="type" id="type" value="add"/>
+            <input style="width:100%;" class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("createB") }}"/>
+        </form><br/>
+    </div>
+{% endblock %}

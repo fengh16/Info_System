@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    <br/>
+        <p>{{ tr("logoutInfoT") }}</p><br/>
+    <a href="{{ url_for("index") }}"><button class="td-button td-button--primary td-button--xl">{{ tr("backhomeB") }}</button></a>
+{% endblock %}

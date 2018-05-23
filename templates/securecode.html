@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+{#    <div style="margin:0 auto; width: 600px;">#}
+{#    <div style="text-align: left;">#}
+    <br/><br/>
+            <table class="pricing sticky">
+                <thead class="pricing__header">
+                    <tr>
+                        <td class="sticky__header p-h-0 p-v-0" colspan="4">
+                            <table>
+                                <tbody class="sticky__header-body">
+                                    <tr class="pricing__plans">
+                                        <th scope="col"><b>{{ tr("secureSignHint") }}</b></th>
+                                        <th scope="col">{{ tr("levelT2") }}</th>
+                                        <th scope="col">{{ tr("statusT") }}</th>
+                                        <th scope="col">{{ tr("timeT") }}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </thead>
+    {#            <tfoot>#}
+    {#                <tr>#}
+    {#                    <td></td>#}
+    {#                    <td class="sticky__footer">#}
+    {#                            <a href="/Users/showRegister" class="button button--outline-primary button--sm width-full" onclick="return showSignUp()">Sign up</a>#}
+    {#                    </td>#}
+    {#                    <td class="p-h-0">#}
+    {#                            <a href="/premium" class="button button--sm width-full">Buy Premium</a>#}
+    {#                    </td>#}
+    {#                    <td>#}
+    {#                            <a href="/business" class="button button--sm width-full">Start free trial</a>#}
+    {#                    </td>#}
+    {#                </tr>#}
+    {#            </tfoot>#}
+                <tbody>
+                {% for data in infodata %}
+                    <tr>
+                            <th><b>{{ data[1] }}</b></th>
+                            <td>{{ data[0] }}</td>
+                            <td>{{ data[2] }}</td>
+                            <td>{{ data[3] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    <br/><br/><br/>
+    <div style="margin:0 auto; width: 500px;">
+        <form id="form1" name="form1" method="post" style="text-align: left;">
+            <input class="wideinput" type="number" name="level" id="level" placeholder="{{ tr("levelT") }}" min="1" max="4"/>
+            <input class="wideinput" type="number" name="num" id="num" placeholder="{{ tr("numT") }}" min="1" max="10"/>
+            <input hidden name="token" id="token" value="{{ mtoken }}"/>
+            <input style="width:100%;" class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("createB") }}"/>
+        </form><br/>
+    </div>
+{#    </div></div>#}
+{% endblock %}

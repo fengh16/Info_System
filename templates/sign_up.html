@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+        <script type="text/javascript">
+            var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            function ajaxForm() {
+                var types=new Array();
+                $("input[name='checkbox']:checkbox:checked").each(function(){
+                types.push($(this).val())
+                })
+                $.ajax( {
+                    type : "POST",
+                    url : $SCRIPT_ROOT,
+                    dataType : "json",
+                    data : {
+                        "showname" : $("input[name=showname]").val(),
+                        "username" : $("input[name=username]").val(),
+                        "password" : $("input[name=password]").val(),
+                        "token"    : $("input[name=token]").val(),
+                {% if secure %}"securecode":$("input[name=securecode]").val(),{% endif %}
+                        "items"    : types
+                    },
+                    error: function(XMLResponse) {
+                        alert( XMLResponse.responseText )
+                    },
+                    success : function (data, textStatus) {
+                        $("#ans").text( data.text );
+                        if(data.state == "OK") {
+                            setTimeout(function() {
+                                window.location.href="{{ url_for("log") }}"
+                            }, 1000)
+                        }
+                    }
+                } );
+                return false;
+            }
+        </script>
+    <br/>
+    <div style="margin:0 auto; width: 300px;">
+        <form id="form1" name="form1" method="post" onSubmit="return ajaxForm()" action="" style="text-align: left;">
+            <input class="wideinput" type="text" name="showname" id="showname" placeholder="{{ tr("usernamePlaceHolder") }}"/>
+            <input class="wideinput" type="text" name="username" id="username" placeholder="{{ tr("useridSignHint") }}"/>
+            <input class="wideinput" type="password" name="password" id="password" placeholder="{{ tr("passwordSignHint") }}"/>
+            {% if secure %}<input class="wideinput" type="text" name="securecode" id="securecode" placeholder="{{ tr("secureSignHint") }}"/>{% endif %}
+            <br/>{{ tr("sectionsChooseT") }}<br/>
+        <div style="margin:0 auto; width: 200px">
+            {% for type in typelist %}
+                <input type="checkbox" checked="true" name="checkbox" value="{{ type[0] }}" />{{ type[1] }}<br />
+            {% endfor %}
+        </div><br/>
+            <input hidden name="token" id="token" value="{{ mtoken }}"/>
+            <input style="width:100%;" class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("signB") }}"/>
+        </form><br/>
+        <p id="ans">{{ tr("signupPageHint") }}</p>
+    </div>
+{% endblock %}

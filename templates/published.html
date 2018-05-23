@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+{#    <div style="margin:0 auto; width: 600px;">#}
+{#    <div style="text-align: left;">#}
+    <br/><br/>
+            <table class="pricing sticky">
+                <thead class="pricing__header">
+                    <tr>
+                        <td class="sticky__header p-h-0 p-v-0" colspan="4">
+                            <table>
+                                <tbody class="sticky__header-body">
+                                    <tr class="pricing__plans">
+                                        <th scope="col"><b>{{ tr("contentPublishedTableT") }}</b></th>
+                                        <th scope="col">{{ tr("contentsT") }}</th>
+                                        <th scope="col">{{ tr("classesT") }}</th>
+                                        <th scope="col">{{ tr("operationsT") }}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </thead>
+    {#            <tfoot>#}
+    {#                <tr>#}
+    {#                    <td></td>#}
+    {#                    <td class="sticky__footer">#}
+    {#                            <a href="/Users/showRegister" class="button button--outline-primary button--sm width-full" onclick="return showSignUp()">Sign up</a>#}
+    {#                    </td>#}
+    {#                    <td class="p-h-0">#}
+    {#                            <a href="/premium" class="button button--sm width-full">Buy Premium</a>#}
+    {#                    </td>#}
+    {#                    <td>#}
+    {#                            <a href="/business" class="button button--sm width-full">Start free trial</a>#}
+    {#                    </td>#}
+    {#                </tr>#}
+    {#            </tfoot>#}
+                <tbody>
+                {% for data in infodata %}
+                    <tr>
+                            <th><b>{{ data[2] }}</b></th>
+                            <td>{{ data[3] }}</td>
+                            <td>{{ data[0] }}</td>
+                            <td><form id="form1" name="form1" method="post">
+                                <input hidden name="token" id="token" value="{{ mtoken }}"/>
+                                <input hidden name="chosen" id="chosen" value="{{ data[4] }}"/>
+                                <input class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("deleteB") }}"/>
+                            </form></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+{#    </div></div>#}
+{% endblock %}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% if title %}
+        <title>{{ title }} - Henry the Fox</title>
+        {% else %}
+        <title>Henry the Fox!</title>
+        {% endif %}
+        <meta name="description" content="Website for Henry the Fox.">
+        {% if jqueryShow %}<script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>{% endif %}
+        <link rel="stylesheet" type="text/css" href= {{ url_for('static', filename='css/main.css') }}>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/ico.png') }}">
+        <!-- START COPYED CSS, from https://en.todoist.com/ -->
+{#            <link rel="stylesheet" type="text/css" href="https://d3ptyyxy2at9ui.cloudfront.net/80297669d94932fbd99bc45c8964bade.css.cgz" media="all">#}
+        <link rel="stylesheet" type="text/css" href= {{ url_for('static', filename='css/copied.css') }}>
+{#        <link rel="stylesheet" type="text/css" href="https://d3ptyyxy2at9ui.cloudfront.net/f29e7ac9378f05d9253db8fe64a76b53.css.cgz" media="all">#}
+        <!-- END COPYED CSS & JS -->
+    </head>
+    <nav class="td-header td-header--theme-base">
+        <div class="td-header__floating">
+            <div class="td-container">
+                <div class="td-header__inner">
+                    <div class="td-header__brand">
+                        <a class="td-header__logo-holder" href="{{ url_for("index") }}">
+                            <img alt="Henry_the_Fox" class="td-header__logo td-header__logo--base" src="{{ url_for('static', filename='img/logo.png') }}">
+                        </a>
+                    </div>
+                    <a class="td-header__toggle" id="hide_or_show">
+                        <div class="td-cssicon-cross"><div class="td-cssicon-cross__y"></div></div>
+                    </a>
+                    <div class="td-header__actions-holder">
+                        <ul class="td-header__actions">
+                            {% if controlusersShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("controlusersNow") }}">{{ tr("normalusersT") }}</a>
+                            </li>{% endif %}
+                            {% if controlarticlesShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("controlarticlesNow") }}">{{ tr("controlarticlesHint") }}</a>
+                            </li>{% endif %}
+                            {% if publishShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("publish") }}">{{ tr("publishB") }}</a>
+                            </li><li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("published") }}">{{ tr("publishedB") }}</a>
+                            </li>{% endif %}
+                            {% if securecodeShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("securecodeNow") }}">{{ tr("secureSignHint") }}</a>
+                            </li>{% endif %}
+                            {% if controlTypesShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("controltypesNow") }}">{{ tr("controltypesSignHint") }}</a>
+                            </li>{% endif %}
+                            {% if logoutShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("logoutNow") }}">{{ tr("logoutB") }}</a>
+                            </li>{% endif %}
+                            {% if homeShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" id="homeB" href="{{ url_for("index") }}">{{ tr("homeB") }}</a>
+                            </li>{% endif %}
+                            {% if loginShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("log") }}">{{ tr("loginB") }}</a>
+                            </li>{% endif %}
+                            {% if signShow %}<li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("sign") }}">{{ tr("signB") }}</a>
+                            </li><li class="td-header__action">
+                                <a class="td-header__action-link" href="{{ url_for("ssign") }}">{{ tr("ssignB") }}</a>
+                            </li>{% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <body>
+    <br/>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <div style="text-align:center">
+    {% if not showthings %}
+        <img class="tdo-illustration" src="{{ url_for('static', filename="img/platforms.png") }}" width="309" height="160">
+        <br/><br/>
+        <h>Henry the Fox</h>
+        <br/>{% endif %}
+        {% block content %}{% endblock %}
+        </div>
+    </body>
+    <p class="footer-position"></p>
+    <footer class="td-footer td-footer--theme-base">
+        <div class="td-container">
+            <div class="td-grid td-grid--m-b-0">
+                <nav class="td-grid__cell td-width-6-12">
+                    <h2 class="td-footer__h">{{ tr("langT") }}</h2>
+                    <select id="langChoose" class="td-form-control td-form-control--sm td-form-control--select td-width-full" onchange="changedLang()" name="{{ url_for("changeLang") }}">
+                        <option value="zhCN">中文 (简体)</option>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="zhTW">中文 (繁體)</option>
+                    </select>
+                    <script>
+                        selectValue("langChoose", "{{ getLang() }}")
+                    </script>
+                </nav>
+                <aside class="td-grid__cell td-width-6-12">
+                    <h2 class="td-footer__h">{{ tr("aboutT") }}</h2>
+                    <ul class="td-footer__l">
+                        <li class="td-footer__l-i">
+                            <a class="td-footer__l-a" href="https://fengh16.github.io/">Fox and Bunny</a>
+                        </li>
+                        <li class="td-footer__l-i">
+                            <a class="td-footer__l-a" href="https://github.com/fengh16/">Github</a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="td-footer__separator"></div>
+            <div class="td-flex td-flex-x-center">
+                <h2 class="td-footer__h td-m-b-0 td-flex-item-fill td-text-truncate td-p-e-1">2018 fengh16</h2>
+                <div class="td-m-gap-1d5 td-m-gap-no-offset">
+                    <a class="td-footer__logo td-icon td-icon--30" href="https://www.facebook.com/herry.fox.501/">
+                        <svg class="td-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><path fill="currentColor" d="M21.5 20.45c0 .636-.32 1.05-.968 1.05h-5.45v-7.946h2.772l.42-3.405h-3.19V8.377c0-.908.25-1.635 1.592-1.635h1.907V4.036c-.583-.04-1.487-.125-2.67-.125-2.463 0-4.33 1.465-4.33 4.156v2.083H8.667v3.404h2.916V21.5H1.48c-.653 0-.98-.414-.98-1.05V1.913C.5 1.278.827.5 1.48.5h19.052c.647 0 .968.778.968 1.413V20.45z"></path></svg>
+                    </a>
+                    <a class="td-footer__logo td-icon td-icon--30" href="https://twitter.com/hfox_top">
+                        <svg class="td-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="19" viewBox="0 0 22 19"><path fill="currentColor" d="M21.193 1.286c-.857.52-1.804.9-2.816 1.1A4.377 4.377 0 0 0 15.143.954c-2.445 0-4.43 2.034-4.43 4.544 0 .355.038.7.114 1.034-3.682-.19-6.947-1.996-9.134-4.75a4.632 4.632 0 0 0-.6 2.288c0 1.576.782 2.967 1.972 3.782a4.372 4.372 0 0 1-2.01-.567v.056c0 2.203 1.53 4.04 3.558 4.456-.372.107-.764.16-1.168.16a4.32 4.32 0 0 1-.834-.08c.565 1.805 2.2 3.12 4.14 3.154a8.746 8.746 0 0 1-5.504 1.946c-.357 0-.71-.02-1.057-.062a12.331 12.331 0 0 0 6.792 2.04c8.152 0 12.61-6.923 12.61-12.93 0-.197-.005-.394-.012-.588a9.126 9.126 0 0 0 2.21-2.35 8.74 8.74 0 0 1-2.545.714 4.538 4.538 0 0 0 1.948-2.514"></path></svg>
+                    </a>
+                    <a class="td-footer__logo td-icon td-icon--30" href="https://www.youtube.com/channel/UC1GAdlLdLwDQBUgrIC11a9Q/videos">
+                        <svg class="td-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="17" viewBox="0 0 24 17"><path fill="currentColor" d="M11.995 0h.01s5.038 0 8.397.243c.47.056 1.492.06 2.404 1.016.72.728.954 2.382.954 2.382S24 5.583 24 7.525v1.82c0 1.943-.24 3.885-.24 3.885s-.234 1.655-.954 2.383c-.912.956-1.935.96-2.404 1.017-3.36.242-8.402.25-8.402.25s-6.24-.057-8.16-.24c-.534-.1-1.733-.07-2.646-1.027-.72-.728-.954-2.382-.954-2.382S0 11.29 0 9.348v-1.82c0-1.943.24-3.885.24-3.885s.234-1.654.954-2.383C2.107.303 3.129.3 3.598.243 6.958 0 11.995 0 11.995 0zM9.521 4.81l.002 6.743 6.484-3.36L9.522 4.81z"></path></svg>
+                    </a>
+                    <a class="td-footer__logo td-icon td-icon--30" href="https://www.instagram.com/hfox_top/">
+                        <svg class="td-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M11.996.008C8.738.008 8.33.021 7.05.08 5.773.138 4.9.34 4.138.637a5.878 5.878 0 0 0-2.125 1.384A5.895 5.895 0 0 0 .63 4.147C.333 4.91.13 5.782.072 7.059.014 8.338 0 8.746 0 12.004s.014 3.666.072 4.946c.058 1.277.26 2.15.558 2.912.306.79.717 1.458 1.383 2.125a5.883 5.883 0 0 0 2.125 1.383c.763.297 1.635.5 2.912.558 1.28.058 1.688.072 4.946.072s3.667-.014 4.946-.072c1.277-.058 2.15-.26 2.912-.558a5.875 5.875 0 0 0 2.125-1.383 5.896 5.896 0 0 0 1.383-2.125c.296-.763.5-1.635.557-2.912.06-1.28.072-1.688.072-4.946s-.013-3.667-.072-4.946c-.058-1.277-.26-2.15-.557-2.912a5.878 5.878 0 0 0-1.384-2.125A5.908 5.908 0 0 0 19.852.638c-.763-.296-1.635-.5-2.912-.557-1.28-.06-1.688-.072-4.946-.072zm0 2.16c3.203 0 3.583.013 4.848.07 1.17.054 1.805.25 2.227.414.56.218.96.478 1.38.897.42.42.68.82.898 1.38.164.42.36 1.057.413 2.226.06 1.265.07 1.645.07 4.848s-.01 3.582-.07 4.847c-.052 1.17-.248 1.806-.412 2.23-.218.56-.478.958-.897 1.378-.42.42-.82.68-1.38.898-.42.164-1.057.36-2.226.413-1.265.056-1.644.07-4.848.07-3.203 0-3.582-.014-4.847-.07-1.17-.055-1.806-.25-2.23-.414a3.717 3.717 0 0 1-1.378-.898c-.42-.42-.68-.82-.898-1.38-.164-.422-.36-1.057-.413-2.227-.056-1.264-.07-1.643-.07-4.846 0-3.203.014-3.583.07-4.848.055-1.17.25-1.805.414-2.227.218-.56.478-.96.898-1.38.42-.42.82-.68 1.38-.898.422-.164 1.057-.36 2.227-.413 1.264-.06 1.643-.07 4.846-.07zm0 13.835a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-10.16a6.16 6.16 0 1 1 0 12.32 6.16 6.16 0 1 1 0-12.32zM19.84 5.6a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>
+    footerresize();
+</script>
+</html>

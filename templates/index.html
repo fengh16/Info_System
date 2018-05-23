@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+        {% if logged %}
+            <br/>
+            <p>{{ info }}</p><br/><br/>
+            <table class="pricing sticky">
+                <thead class="pricing__header">
+                    <tr>
+                        <td class="sticky__header p-h-0 p-v-0" colspan="4">
+                            <table>
+                                <tbody class="sticky__header-body">
+                                    <tr class="pricing__plans">
+                                        <th scope="col"><b>{{ tr("contentTableT") }}</b></th>
+                                        <th scope="col">{{ tr("contentsT") }}</th>
+                                        <th scope="col">{{ tr("classesT") }}</th>
+                                        <th scope="col">{{ tr("authorT") }}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </thead>
+    {#            <tfoot>#}
+    {#                <tr>#}
+    {#                    <td></td>#}
+    {#                    <td class="sticky__footer">#}
+    {#                            <a href="/Users/showRegister" class="button button--outline-primary button--sm width-full" onclick="return showSignUp()">Sign up</a>#}
+    {#                    </td>#}
+    {#                    <td class="p-h-0">#}
+    {#                            <a href="/premium" class="button button--sm width-full">Buy Premium</a>#}
+    {#                    </td>#}
+    {#                    <td>#}
+    {#                            <a href="/business" class="button button--sm width-full">Start free trial</a>#}
+    {#                    </td>#}
+    {#                </tr>#}
+    {#            </tfoot>#}
+                <tbody>
+                {% for data in infodata %}
+                    <tr>
+                            <th><b>{{ data[2] }}</b></th>
+                            <td>{{ data[3] }}</td>
+                            <td>{{ data[0] }}</td>
+                            <td>{{ data[1] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div style="text-align: left">
+                <section class="td-container td-p-v-2-section">
+                    <div class="td-grid td-grid--m-b-0 td-flex-x-center td-flex-x-start-@md">
+                        <div class="td-grid__cell td-width-6-12-@sm">
+                            <h2 class="td-t-hd1 td-m-b-1">{{ tr("indexIntro1") }}<span class="td-t-c-primary td-display-block">{{ tr("indexIntro2") }}</span></h2>
+                            <p class="td-t-pl td-m-b-4">{{ tr("indexIntro3") }}</p>
+                            <a href="{{ url_for("sign") }}"><button class="td-button td-button--primary td-button--xl">{{ tr("indexIntroB") }}</button></a>
+                        </div>
+                        <div class="td-grid__cell td-width-6-12-@sm">
+                            <img alt="" class="td-img-preserve td-w-100-@sm-down" src="{{ url_for('static', filename='img/indexpic1.png') }}" width="623">
+                        </div>
+                    </div>
+                </section><br/>
+                <section class="td-container td-p-b-section td-p-b-0-@sm-down">
+                    <div class="td-grid td-grid--m-b-0 td-flex-row-reverse td-flex-x-center td-flex-space-between">
+                        <div class="td-grid__cell td-width-7-12-@sm td-width-6-12-@lg">
+                            <h2 class="td-t-h1 td-m-b-1">{{ tr("indexIntro4") }}</h2>
+                            <p class="td-t-pl td-m-b-3">{{ tr("indexIntro5") }}</p>
+                            <a href="{{ url_for("sign") }}"><button class="td-button td-button--primary td-button--xl">{{ tr("indexIntroB") }}</button></a>
+                        </div>
+                        <div class="td-grid__cell td-dir-rtl-bdo td-width-5-12-@sm">
+                            <img alt="" class="td-img-preserve td-w-100-@sm-down" src="{{ url_for('static', filename='img/indexpic2.png') }}" width="437">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        {% endif %}
+{% endblock %}

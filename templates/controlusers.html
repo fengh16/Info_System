@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <br/><br/>
+            <table class="pricing sticky">
+                <thead class="pricing__header">
+                    <tr>
+                        <td class="sticky__header p-h-0 p-v-0" colspan="4">
+                            <table>
+                                <tbody class="sticky__header-body">
+                                    <tr class="pricing__plans">
+                                        <th scope="col"><b>{{ tr("useridPlaceHolder") }}</b></th>
+                                        <th scope="col">{{ tr("usernamePlaceHolder") }}</th>
+                                        <th scope="col">{{ tr("timeT") }}</th>
+                                        <th scope="col">{{ tr("operationsT") }}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for data in infodata %}
+                    <tr>
+                            <th><b>{{ data[0] }}</b></th>
+                            <td>{{ data[1] }}</td>
+                            <td>{{ data[2] }}</td>
+                            <td><form id="form1" name="form1" method="post">
+                                <input hidden name="token" id="token" value="{{ mtoken }}"/>
+                                <input hidden name="chosen" id="chosen" value="{{ data[0] }}"/>
+                                <input class="td-button td-button--primary" type="submit" name="Sub" id="Sub" value="{{ tr("deleteB") }}"/>
+                            </form></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}
