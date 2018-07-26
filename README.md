@@ -11,4 +11,5 @@
 * 语言切换：
   * 定义并实现翻译的函数，根据用户偏好设置来显示语言
 
-在 [这里](http://foxandbunny.me/) 有一个运行中的示例程序，超级管理员账号：superadmin，密码：jioj@#ji23gQ23
+~~在 [这里](http://foxandbunny.me/) 有一个运行中的示例程序，超级管理员账号：superadmin，密码：jioj@#ji23gQ23~~
+(已经删除该站点）
